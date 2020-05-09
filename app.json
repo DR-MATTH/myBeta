@@ -1,0 +1,17 @@
+{
+  "name": "myBeta",
+  "displayName": "myBeta",
+  "expo": {
+    "name": "myBeta",
+    "slug": "myBeta",
+    "version": "1.0.0",
+    "platforms": [
+      "ios",
+      "android",
+      "web"
+    ],
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
