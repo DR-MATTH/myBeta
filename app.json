@@ -13,5 +13,8 @@
     "assetBundlePatterns": [
       "**/*"
     ]
+  },
+  "resolutions": {
+    "@react-native-community/cli-platform-android": "~3.0.0"
   }
 }
