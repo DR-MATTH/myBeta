@@ -7,11 +7,13 @@ import {
 	FlatList,
 	KeyboardAvoidingView,
 	TextInput,
-	Keyboard
+	Keyboard,
+	Animated
 } from 'react-native'
 import colors from '../colors'
 import {AntDesign, Ionicons} from '@expo/vector-icons'
 import { Platform } from 'react-native'
+import {Swipeable} from 'react-native-gesture-handler'
 
 export default class TodoModal extends React.Component {
 	state = {
@@ -24,7 +26,8 @@ export default class TodoModal extends React.Component {
 	}
 	renderTodo = (todo, index) => {
 		return (
-			<View style={{flexDirection: 'column'}}>
+			<Swipeable renderRightActions={(_, dragX) => this.rightActions(dragX, index)}>
+				<View style={{flexDirection: 'column'}}>
 				<View style={styles.todoContainer}>
 					<TouchableOpacity onPress={() => this.toggleTodoCompleted(index)}>
 						<Ionicons
@@ -46,16 +49,33 @@ export default class TodoModal extends React.Component {
 				</View>
 				<View style={{backgroundColor: this.state.color, height: 1}} />
 			</View>
+			</Swipeable>
+		)
+	}
+	deleteTodo = index => {
+		let list = this.props.list
+		list.todos.splice(index, 1)
+		this.props.updateList(list)
+	}
+	rightActions = (dragX, index) => {
+		return (
+			<TouchableOpacity onPress={() => this.deleteTodo(index)}>
+				<Animated.View style={styles.deleteButton}>
+					<Animated.Text style={{color: colors.white, fontWeight: 'bold'}}>Delete</Animated.Text>
+				</Animated.View>
+			</TouchableOpacity>
 		)
 	}
 	addTodo = () => {
-		if (this.state.newTodo !== '') {
-			let list = this.props.list
+		let list = this.props.list
+		if (!list.todos.some(todo => todo.title === this.state.newTodo) && this.state.newTodo !== '') {
 			list.todos.push({title: this.state.newTodo, completed: false})
 			this.props.updateList(list)
-			this.setState({newTodo: ''})
-			Keyboard.dismiss()
 		}
+		
+		this.setState({newTodo: ''})
+		Keyboard.dismiss()
+		
 	}
 
 	render() {
@@ -85,6 +105,7 @@ export default class TodoModal extends React.Component {
           <FlatList
             data={list.todos}
             renderItem={({item, index}) => this.renderTodo(item, index)}
+            // keyExtractor={(_, index) => index.toString()}
             keyExtractor={item => item.title}
             contentContainerStyle={{paddingHorizontal: 32, paddingVertical: 64}}
 						showsVerticalScrollIndicator={false}
@@ -159,5 +180,13 @@ const styles = StyleSheet.create({
 	todoContainer: {
 		paddingVertical: 16,
 		flexDirection: 'row',
+	},
+	deleteButton: {
+		backgroundColor: colors.red,
+		flex: 1,
+		justifyContent: 'center',
+		alignItems: 'center',
+		width: 80,
+		height: 40,
 	},
 })
