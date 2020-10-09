@@ -15,10 +15,11 @@ import {AntDesign, Ionicons} from '@expo/vector-icons'
 import { Platform } from 'react-native'
 import {Swipeable} from 'react-native-gesture-handler'
 
-export default class TodoModal extends React.Component {
+export default class Tareas extends React.Component {
 	state = {
 		newTodo: '',
 	}
+	// para cambiar el valor del completado
 	toggleTodoCompleted = index => {
 		let list = this.props.list
 		list.todos[index].completed = !list.todos[index].completed
@@ -26,7 +27,7 @@ export default class TodoModal extends React.Component {
 	}
 	renderTodo = (todo, index) => {
 		return (
-			<Swipeable renderRightActions={(_, dragX) => this.rightActions(dragX, index)}>
+			<Swipeable renderRightActions={dragX => this.rightActions(dragX, index)}>
 				<View style={{flexDirection: 'column'}}>
 				<View style={styles.todoContainer}>
 					<TouchableOpacity onPress={() => this.toggleTodoCompleted(index)}>
@@ -61,7 +62,7 @@ export default class TodoModal extends React.Component {
 		return (
 			<TouchableOpacity onPress={() => this.deleteTodo(index)}>
 				<Animated.View style={styles.deleteButton}>
-					<Animated.Text style={{color: colors.white, fontWeight: 'bold'}}>Delete</Animated.Text>
+					<Animated.Text style={{color: colors.white, fontWeight: 'bold'}}>Elisminar</Animated.Text>
 				</Animated.View>
 			</TouchableOpacity>
 		)
@@ -75,15 +76,13 @@ export default class TodoModal extends React.Component {
 		
 		this.setState({newTodo: ''})
 		Keyboard.dismiss()
-		
 	}
 
 	render() {
 		const list = this.props.list
-		const taskCount = list.todos.length
-		const completedCount = list.todos.filter(todo => todo.completed).length
+		const total = list.todos.length
+		const completados = list.todos.filter(todo => todo.completed).length
 		return (
-			// <KeyboardAvoidingView style={{flex: 1}} behavior='height'>
       <View style={styles.container}>
         <TouchableOpacity
           style={[{position: 'absolute', zIndex: 10},
@@ -97,7 +96,7 @@ export default class TodoModal extends React.Component {
           <View>
             <Text style={styles.title}>{list.name}</Text>
             <Text style={styles.taskCount}>
-              {completedCount} of {taskCount} tasks
+              {completados} de {total} tareas
             </Text>
           </View>
         </View>

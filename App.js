@@ -2,8 +2,8 @@ import React from 'react'
 import {StyleSheet, Text, View, TouchableOpacity, FlatList, Modal, ActivityIndicator} from 'react-native'
 import colors from './colors'
 import {AntDesign} from '@expo/vector-icons'
-import TodoList from './components/TodoList'
-import AddListModal from './components/AddListModal'
+import ListaDeClases from './components/ListaDeClases'
+import AgregarClaseScreen from './components/AgregarClaseScreen'
 import Fire from './Fire'
 
 
@@ -18,7 +18,7 @@ export default class App extends React.Component {
 	componentDidMount() {
 		firebase = new Fire((error, user) => {
 			if (error) {
-				return alert('uh oh, somethig went wrong!')
+				return alert('Algo salió mal!')
 			}
 			firebase.getLists(lists => {
 				this.setState({lists, user}, () => {
@@ -37,7 +37,7 @@ export default class App extends React.Component {
 		this.setState({addTodoVisible: !this.state.addTodoVisible})
 	}
 	renderList = list => {
-		return <TodoList list={list} updateList={this.updateList} />
+		return <ListaDeClases list={list} updateList={this.updateList} />
 	}
 	addList = list => {
 		firebase.addList({
@@ -45,15 +45,9 @@ export default class App extends React.Component {
 			color: list.color,
 			todos: [],
 		})
-		// this.setState({lists: [...this.state.lists, {...list, id: this.state.lists.length + 1, todos: []}]})
 	}
 	updateList = list => {
 		firebase.updateList(list)
-		// this.setState({
-		// 	lists: this.state.lists.map(item => {
-		// 		return item.id === list.id ? list : item
-		// 	}),
-		// })
 	}
 
 	render() {
@@ -66,7 +60,7 @@ export default class App extends React.Component {
 		}
 
 		return (
-			<View style={{flex: 1}}>
+			<View style={{flex: 1, padding: 0, margin: 0}}>
 				<View style={{height: 29, backgroundColor: colors.lightBlue}} />
 				<View style={styles.container}>
 					<Modal
@@ -75,7 +69,7 @@ export default class App extends React.Component {
 						onRequestClose={() => this.toggleAddTodoModal()}
 						presentationStyle="pageSheet"
 					>
-						<AddListModal closeModal={() => this.toggleAddTodoModal()} addList={this.addList} />
+						<AgregarClaseScreen closeModal={() => this.toggleAddTodoModal()} addList={this.addList} />
 					</Modal>
 
 					<View>
@@ -85,19 +79,19 @@ export default class App extends React.Component {
 					<View style={{flexDirection: 'row'}}>
 						<View style={styles.divider} />
 						<Text style={styles.title}>
-							Todo <Text style={{fontWeight: '300', color: colors.blue}}>Lists</Text>
+							Class <Text style={{fontWeight: '300', color: colors.blue}}>duties</Text>
 						</Text>
 						<View style={styles.divider} />
 					</View>
-
-					<View style={{marginVertical: 48}}>
-						<TouchableOpacity style={styles.addList} onPress={() => this.toggleAddTodoModal()}>
+					<View style={{marginTop: 48}}>
+						<TouchableOpacity style={styles.addButton} onPress={() => this.toggleAddTodoModal()}>
 							<AntDesign name="plus" size={24} color={colors.blue} />
 						</TouchableOpacity>
-						<Text style={styles.add}>Add List</Text>
 					</View>
-
-					<View style={{height: 275}}>
+					<View style={{marginBottom: 48}}>
+						<Text style={styles.addText}>Añadir clase</Text>
+					</View>
+					<View>
 						<FlatList
 							data={this.state.lists}
 							keyExtractor={item => item.id.toString()}
@@ -133,7 +127,7 @@ const styles = StyleSheet.create({
 		color: colors.black,
 		paddingHorizontal: 64,
 	},
-	addList: {
+	addButton: {
 		borderWidth: 2,
 		borderColor: colors.lightBlue,
 		borderRadius: 4,
@@ -141,7 +135,7 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 		justifyContent: 'center',
 	},
-	add: {
+	addText: {
 		color: colors.blue,
 		fontWeight: 'bold',
 		fontSize: 14,

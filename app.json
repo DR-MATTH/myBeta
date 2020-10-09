@@ -7,11 +7,58 @@
     "version": "1.0.0",
     "platforms": [
       "ios",
-      "android",
-      "web"
+      "android"
     ],
+    "android": {
+      "package": "com.yourcompany.yourappname",
+      "versionCode": 1
+    },
     "assetBundlePatterns": [
       "**/*"
     ]
   }
 }
+
+// {
+//   "expo": {
+//     "name": "to-do",
+//     "slug": "to-do",
+//     "platforms": [
+//       "ios",
+//       "android"
+//     ],
+//     "android": {
+//       "package": "com.yourcompany.yourappname",
+//       "versionCode": 1
+//     },
+//     "ios": {
+//       "bundleIdentifier": "com.yourcompany.yourappname",
+//       "buildNumber": "1.0.0",
+//       "supportsTablet": true
+//     },
+//     "version": "1.0.0",
+//     "orientation": "portrait",
+//     "icon": "./assets/myIcon.png",
+//     "splash": {
+//       "image": "./assets/emi.png",
+//       "resizeMode": "contain",
+//       "backgroundColor": "#FFFFFF"
+//     },
+//     "updates": {
+//       "fallbackToCacheTimeout": 0
+//     },
+//     "assetBundlePatterns": [
+//       "**/*"
+//     ],
+//     "packagerOpts": {
+//       "config": "metro.config.js",
+//       "sourceExts": [
+//         "js",
+//         "json",
+//         "ts",
+//         "tsx",
+//         "vue"
+//       ]
+//     }
+//   }
+// }

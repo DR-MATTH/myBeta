@@ -5,7 +5,7 @@ import {AntDesign} from '@expo/vector-icons'
 import colors from '../colors'
 
 
-export default class AddListModal extends React.Component {
+export default class AgregarClaseScreen extends React.Component {
   backgroundColors = ['#5CD859', '#24A6D9', '#595BD9', '#8022D9', '#D159D8', '#D85963', '#D88559']
   state = {
     name: '',
@@ -35,8 +35,8 @@ export default class AddListModal extends React.Component {
         </TouchableOpacity>
 
         <View style={{alignSelf: 'stretch', marginHorizontal: 32}}>
-          <Text style={styles.title}>Create Todo List</Text>
-          <TextInput style={styles.input} placeholder="List name?" 
+          <Text style={styles.title}>Agrega una nueva clase!</Text>
+          <TextInput style={styles.input} placeholder="nombre de la clase?" 
             onChangeText={text => this.setState({name: text})}>
           </TextInput>
           <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
