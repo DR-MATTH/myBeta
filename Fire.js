@@ -2,13 +2,12 @@ import firebase from 'firebase'
 import '@firebase/firestore'
 
 const firebaseConfig = {
-	apiKey: 'AIzaSyC0mlScDx25Bdq-FvQUSyN_jgpE9ExJIds',
-	authDomain: 'mybeta-f8e31.firebaseapp.com',
-	databaseURL: 'https://mybeta-f8e31.firebaseio.com',
-	projectId: 'mybeta-f8e31',
-	storageBucket: 'mybeta-f8e31.appspot.com',
-	messagingSenderId: '504838730603',
-	appId: '1:504838730603:web:343e7e7540dd4bf06e122e',
+  apiKey: "AIzaSyAbpVbzud0WP7THataX2R7HW961WjV3nQ4",
+  authDomain: "clubhouse-8e965.firebaseapp.com",
+  projectId: "clubhouse-8e965",
+  storageBucket: "clubhouse-8e965.appspot.com",
+  messagingSenderId: "227240151453",
+  appId: "1:227240151453:web:091d2df0137d326aae4774"
 }
 class Fire {
   constructor(callback) {
