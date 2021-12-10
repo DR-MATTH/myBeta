@@ -1,4 +1,4 @@
-import firebase from 'firebase'
+import firebase from '@firebase/app'
 import '@firebase/firestore'
 
 const firebaseConfig = {
@@ -33,7 +33,7 @@ class Fire {
     this.unsubscribe = ref.onSnapshot(snapshot => {
       lists = []
       snapshot.forEach(doc => {
-        lists.push({id: doc.id, ...doc.data()})
+        lists.push({ id: doc.id, ...doc.data() })
       })
       callback(lists)
     })
@@ -57,5 +57,5 @@ class Fire {
     this.unsubscribe()
   }
 }
-  
+
 export default Fire
